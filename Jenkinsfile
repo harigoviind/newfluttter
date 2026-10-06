@@ -9,21 +9,27 @@ pipeline {
             }
         }
 
+        stage('Analyze') {
+            steps {
+                bat 'flutter analyze'
+            }
+        }
+
         stage('Test') {
             steps {
                 bat 'flutter test'
             }
         }
 
-        stage('Build') {
+        stage('Build Web') {
             steps {
-                bat 'flutter build apk --release'
+                bat 'flutter build web --release'
             }
         }
 
-        stage('Archive APK') {
+        stage('Archive Web') {
             steps {
-                archiveArtifacts artifacts: 'build\\app\\outputs\\flutter-apk\\app-release.apk',
+                archiveArtifacts artifacts: 'build\\web\\**',
                                   fingerprint: true
             }
         }
